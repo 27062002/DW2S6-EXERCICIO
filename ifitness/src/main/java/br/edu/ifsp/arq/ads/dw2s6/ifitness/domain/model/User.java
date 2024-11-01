@@ -1,6 +1,7 @@
 package br.edu.ifsp.arq.ads.dw2s6.ifitness.domain.model;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Objects;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -9,9 +10,13 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
@@ -41,6 +46,9 @@ public class User {
 	private Gender gender;
 	@NotNull
 	private Boolean active;
+	@ManyToMany(fetch = FetchType.EAGER)
+	@JoinTable(name = "user_permission", joinColumns = @JoinColumn(name = "id_user"), inverseJoinColumns = @JoinColumn(name = "id_permission"))
+	private List<Permission> permissions;
 
 	public Long getId() {
 		return id;
@@ -96,6 +104,14 @@ public class User {
 
 	public void setActive(Boolean active) {
 		this.active = active;
+	}
+
+	public List<Permission> getPermissions() {
+		return permissions;
+	}
+
+	public void setPermissions(List<Permission> permissions) {
+		this.permissions = permissions;
 	}
 
 	@Override

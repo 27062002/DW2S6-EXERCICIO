@@ -1,22 +1,22 @@
 package br.edu.ifsp.arq.ads.dw2s6.atv4.domain.model;
 
-import java.time.LocalDate;
+import java.util.List;
 import java.util.Objects;
 
 import org.hibernate.validator.constraints.br.CPF;
-
-import com.fasterxml.jackson.annotation.JsonFormat;
 
 import jakarta.persistence.AttributeOverride;
 import jakarta.persistence.AttributeOverrides;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
@@ -36,8 +36,14 @@ public class User {
 	@Email
 	private String email;
 	@NotNull
+	private String telefone;
+	@NotNull
+	private String password;
+	@NotNull
 	@CPF
 	private String cpf;
+	@NotNull
+	private Boolean active;
 	@Embedded
 	@AttributeOverrides({
 		  @AttributeOverride( name = "logradouro", column = @Column(name = "logradouro")),
@@ -48,6 +54,10 @@ public class User {
 		  @AttributeOverride( name = "estado", column = @Column(name = "estado")),
 		  @AttributeOverride( name = "cep", column = @Column(name = "cep"))
 		})
+	@ManyToMany(fetch = FetchType.EAGER) // fetch = buscar - eager = ancioso
+	@JoinTable(name = "user_permission", joinColumns = @JoinColumn(name = "id_user"), inverseJoinColumns = @JoinColumn(name = "id_permission"))
+	private List<Permission> permissions;
+	
 	private Adress adress;
 	
 
@@ -82,8 +92,14 @@ public class User {
 	public void setCpf(String cpf) {
 		this.cpf = cpf;
 	}
-	
-	
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
 
 	public Adress getAdress() {
 		return adress;
@@ -91,6 +107,30 @@ public class User {
 
 	public void setAdress(Adress adress) {
 		this.adress = adress;
+	}
+
+	public String getTelefone() {
+		return telefone;
+	}
+
+	public void setTelefone(String telefone) {
+		this.telefone = telefone;
+	}
+
+	public Boolean getActive() {
+		return active;
+	}
+
+	public void setActive(Boolean active) {
+		this.active = active;
+	}
+
+	public List<Permission> getPermissions() {
+		return permissions;
+	}
+
+	public void setPermissions(List<Permission> permissions) {
+		this.permissions = permissions;
 	}
 
 	@Override

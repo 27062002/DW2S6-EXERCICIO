@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,17 +27,19 @@ import jakarta.validation.Valid;
 public class ActivityResource {
 
 	@Autowired
-	private ActivityService activityService;
-	
-	@Autowired
 	private ActivityRepository activityRepository;
 	
+	@Autowired
+	private ActivityService activityService;
+	
 	@GetMapping
+	@PreAuthorize("hasAuthority('ROLE_SEARCH_ACTIVITY') and hasAuthority('SCOPE_read')")
 	public List<Activity> list(){
 		return activityRepository.findAll();
 	}
 	
 	@GetMapping("/{id}")
+	@PreAuthorize("hasAuthority('ROLE_SEARCH_ACTIVITY') and hasAuthority('SCOPE_read')")
 	public ResponseEntity<Activity> findById(@PathVariable Long id) {
 		Optional<Activity> activity = activityRepository.findById(id);
 		if(activity.isPresent()) {
@@ -47,19 +50,23 @@ public class ActivityResource {
 	
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
+	@PreAuthorize("hasAuthority('ROLE_REGISTER_ACTIVITY') and hasAuthority('SCOPE_write')")
 	public Activity create(@Valid @RequestBody Activity activity) {
 		return activityService.save(activity);
 	}
 	
 	@DeleteMapping("/{id}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
+	@PreAuthorize("hasAuthority('ROLE_REMOVE_ACTIVITY') and hasAuthority('SCOPE_write')")
 	public void delete(@PathVariable Long id) {
 		activityRepository.deleteById(id);
 	}
 	
 	@PutMapping("/{id}")
+	@PreAuthorize("hasAuthority('ROLE_REGISTER_ACTIVITY') and hasAuthority('SCOPE_write')")
 	public ResponseEntity<Activity> update(@PathVariable Long id, @Valid @RequestBody Activity activity) {
 		Activity activitySaved = activityService.update(id, activity);
 		return ResponseEntity.ok(activitySaved);
 	}
+	
 }

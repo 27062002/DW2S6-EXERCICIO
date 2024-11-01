@@ -20,6 +20,12 @@ public class UserService {
 		return userRepository.save(userSaved);
 	}
 	
+	public void updateActiveProperty(Long id, Boolean active) {
+		User userSaved = findUserById(id);
+		userSaved.setActive(active);
+		userRepository.save(userSaved);
+	}
+	
 	public User findUserById(Long id) {
 		User userSaved = userRepository.findById(id).orElseThrow(() -> new EmptyResultDataAccessException(1));
 		return userSaved;
