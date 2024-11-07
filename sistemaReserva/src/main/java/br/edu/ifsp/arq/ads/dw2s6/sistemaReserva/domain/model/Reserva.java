@@ -7,6 +7,8 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -28,7 +30,8 @@ public class Reserva {
 	@JsonFormat(pattern =  "dd/MM/yyyy")
 	private LocalDate data_fim;
 	@Size(min = 3, max = 45)
-	private String status;
+	@Enumerated(EnumType.STRING)
+	private Status status;
 	private Integer usuario_id;
 	@ManyToOne
 	@JoinColumn(name = "recurso_id")
@@ -51,10 +54,10 @@ public class Reserva {
 	public void setData_fim(LocalDate data_fim) {
 		this.data_fim = data_fim;
 	}
-	public String getStatus() {
+	public Status getStatus() {
 		return status;
 	}
-	public void setStatus(String status) {
+	public void setStatus(Status status) {
 		this.status = status;
 	}
 	public Integer getUsuario_id() {

@@ -3,6 +3,8 @@ package br.edu.ifsp.arq.ads.dw2s6.sistemaReserva.domain.model;
 import java.util.Objects;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -21,7 +23,8 @@ public class Recurso {
 	@Size(min = 3, max = 45)
 	private String nome;
 	@NotNull
-	private String tipo;
+	@Enumerated(EnumType.STRING)
+	private Tipo tipo;
 
 	public Long getId() {
 		return id;
@@ -39,11 +42,11 @@ public class Recurso {
 		this.nome = nome;
 	}
 
-	public String getTipo() {
+	public Tipo getTipo() {
 		return tipo;
 	}
 
-	public void setTipo(String tipo) {
+	public void setTipo(Tipo tipo) {
 		this.tipo = tipo;
 	}
 
