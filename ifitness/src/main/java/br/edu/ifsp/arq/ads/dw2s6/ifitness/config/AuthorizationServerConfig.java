@@ -56,7 +56,7 @@ public class AuthorizationServerConfig {
 
     @Bean
     RegisteredClientRepository registeredClientRepository() {
-    	List<String> allowedRedirects = Arrays.asList("http://cti-OptiPlex-3080:8000/authorized","https://oidcdebugger.com/debug");
+    	List<String> allowedRedirects = Arrays.asList("http://cti-optiplex-3080:8000/authorized","https://oidcdebugger.com/debug");
     	
         RegisteredClient angularClient = RegisteredClient
                 .withId(UUID.randomUUID().toString())

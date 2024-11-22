@@ -1,14 +1,33 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { AuthService } from '../../security/auth.service';
+import { ActivityService } from '../activity.service';
 
 @Component({
   selector: 'app-activities-list',
   templateUrl: './activities-list.component.html',
   styleUrl: './activities-list.component.css'
 })
-export class ActivitiesListComponent {
-  activities = [
-    { type: 'CORRIDA', activity_date: '06/11/2024', distance: 8.0, duration: 42, user: 'Fernando Duarte' },
-    { type: 'CORRIDA', activity_date: '07/11/2024', distance: 8.0, duration: 43, user: 'Fernando Duarte' },
-    { type: 'CAMINHADA', activity_date: '07/11/2024', distance: 5.0, duration: 55, user: 'Gislaine Rosales' }
-  ];
+export class ActivitiesListComponent implements OnInit{
+
+  activities = [];
+
+  constructor(
+    private activityService: ActivityService,
+    private auth: AuthService)
+  { }
+
+  ngOnInit(): void {
+    if (this.auth.isInvalidAccessToken()) {
+      this.auth.login();
+    }
+    this.list();
+  }
+
+  list(): void {
+    this.activityService.list()
+      .then(result => {
+        this.activities = result;
+      });
+  }
+
 }
