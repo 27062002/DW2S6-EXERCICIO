@@ -24,7 +24,7 @@ export class ActivitiesListComponent implements OnInit{
   }
 
   list(): void {
-    this.activityService.list()
+    this.activityService.listByUser()
       .then(result => {
         this.activities = result;
       });

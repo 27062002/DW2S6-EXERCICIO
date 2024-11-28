@@ -1,3 +1,4 @@
+import { CoreModule } from './core/core.module';
 import { AuthService } from './security/auth.service';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
@@ -18,7 +19,8 @@ import { HttpClientModule } from '@angular/common/http';
     AppRoutingModule,
     ActivitiesModule,
     SecurityModule,
-    HttpClientModule
+    HttpClientModule,
+    CoreModule
   ],
   providers: [
     AuthService
