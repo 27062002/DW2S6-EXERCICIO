@@ -122,6 +122,8 @@ public class AuthorizationServerConfig {
                 authorities.add(grantedAuthority.getAuthority());
             }
 
+	    // aqui!!!
+            context.getClaims().claim("user_id", systemUser.getUser().getId());
             context.getClaims().claim("name", systemUser.getUser().getName());
             context.getClaims().claim("authorities", authorities);
         };

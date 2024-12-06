@@ -12,6 +12,8 @@ import { InputTextModule } from 'primeng/inputtext';
 
 import { ActivitiesListComponent } from './activities-list/activities-list.component';
 import { ActivityRegisterComponent } from './activity-register/activity-register.component';
+import { SharedModule } from '../shared/shared.module';
+import { RouterModule } from '@angular/router';
 
 
 
@@ -29,7 +31,9 @@ import { ActivityRegisterComponent } from './activity-register/activity-register
     TableModule,
     TooltipModule,
     CalendarModule,
-    DropdownModule
+    DropdownModule,
+    SharedModule,
+    RouterModule
   ],
   exports: [
     ActivitiesListComponent,

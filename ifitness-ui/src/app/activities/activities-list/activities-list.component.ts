@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../security/auth.service';
 import { ActivityService } from '../activity.service';
+import { ConfirmationService, MessageService } from 'primeng/api';
+import { ErrorHandlerService } from '../../core/error-handler.service';
 
 @Component({
   selector: 'app-activities-list',
@@ -12,9 +14,12 @@ export class ActivitiesListComponent implements OnInit{
   activities = [];
 
   constructor(
+    private auth: AuthService,
     private activityService: ActivityService,
-    private auth: AuthService)
-  { }
+    private confirmation: ConfirmationService,
+    private messageService: MessageService,
+    private errorHandler: ErrorHandlerService
+  ){ }
 
   ngOnInit(): void {
     if (this.auth.isInvalidAccessToken()) {
@@ -27,7 +32,26 @@ export class ActivitiesListComponent implements OnInit{
     this.activityService.listByUser()
       .then(result => {
         this.activities = result;
-      });
+      })
+      .catch(error => this.errorHandler.handle(error));
+  }
+
+  confirmRemoval(activity: any): void {
+    this.confirmation.confirm({
+      message: 'Tem certeza que deseja excluir?',
+      accept: () => {
+        this.remove(activity);
+      }
+    });
+  }
+
+  remove(activity: any): void {
+    this.activityService.remove(activity.id)
+      .then(() => {
+        this.list();
+        this.messageService.add({ severity: 'success', detail: 'Atividade excluída com sucesso!' });
+      })
+      .catch(error => this.errorHandler.handle(error));
   }
 
 }

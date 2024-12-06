@@ -7,9 +7,9 @@ import { ActivityRegisterComponent } from './activities/activity-register/activi
 const routes: Routes = [
   { path: '', redirectTo: 'activities', pathMatch: 'full' },
   { path: 'activities', component: ActivitiesListComponent },
-  { path: 'authorized', component: AuthorizedComponent },
   { path: 'activities/new', component: ActivityRegisterComponent },
-
+  { path: 'activities/:id', component: ActivityRegisterComponent },
+  { path: 'authorized', component: AuthorizedComponent }
 ];
 
 @NgModule({
