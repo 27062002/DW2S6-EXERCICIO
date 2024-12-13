@@ -101,9 +101,45 @@ export class AuthService {
     localStorage.setItem('refreshToken', refreshToken);
   }
 
-  isInvalidAccessToken() {
+  async getNewAccessToken(): Promise<void> {
+    const headers = new HttpHeaders()
+      .append('Content-Type', 'application/x-www-form-urlencoded')
+      .append('Authorization', 'Basic YW5ndWxhcjpAbmd1bEByMA==');
+
+    const payload = new HttpParams()
+      .append('grant_type', 'refresh_token')
+      .append('refresh_token', localStorage.getItem('refreshToken')!)
+
+    try {
+      const response = await this.http.post<any>(this.oauthTokenUrl, payload,
+        { headers })
+        .toPromise();
+      this.storeToken(response['access_token']);
+      this.storeRefreshToken(response['refresh_token']);
+      console.log('Novo access token criado!');
+      return await Promise.resolve();
+    } catch (response_1) {
+      console.error('Erro ao renovar token.', response_1);
+      return await Promise.resolve();
+    }
+  }
+
+  isInvalidAccessToken(): boolean {
     const token = localStorage.getItem('token');
+
     return !token || this.jwtHelper.isTokenExpired(token);
   }
 
+  hasPermission(permission: string): boolean {
+    return this.jwtPayload && this.jwtPayload.authorities.includes(permission);
+  }
+
+  hasAnyPermission(roles: any): boolean {
+    for (const role of roles) {
+      if (this.hasPermission(role)) {
+        return true;
+      }
+    }
+    return false;
+  }
 }

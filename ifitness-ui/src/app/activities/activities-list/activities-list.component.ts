@@ -3,6 +3,7 @@ import { AuthService } from '../../security/auth.service';
 import { ActivityService } from '../activity.service';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { ErrorHandlerService } from '../../core/error-handler.service';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-activities-list',
@@ -14,17 +15,15 @@ export class ActivitiesListComponent implements OnInit{
   activities = [];
 
   constructor(
-    private auth: AuthService,
     private activityService: ActivityService,
     private confirmation: ConfirmationService,
     private messageService: MessageService,
-    private errorHandler: ErrorHandlerService
-  ){ }
+    private errorHandler: ErrorHandlerService,
+    private title: Title
+  ){}
 
   ngOnInit(): void {
-    if (this.auth.isInvalidAccessToken()) {
-      this.auth.login();
-    }
+    this.title.setTitle('Listagem de Atividades');
     this.list();
   }
 

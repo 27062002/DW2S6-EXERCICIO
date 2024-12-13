@@ -8,6 +8,7 @@ import { ErrorHandlerService } from './../../core/error-handler.service';
 import { ActivityService } from './../activity.service';
 import { Activity } from './../../core/model';
 import { AuthService } from '../../security/auth.service';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-activity-register',
@@ -31,14 +32,16 @@ export class ActivityRegisterComponent {
     private errorHandler: ErrorHandlerService,
     private messageService: MessageService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private title: Title
   ){}
 
   ngOnInit(): void {
     const id = this.route.snapshot.params[`id`];
-    if(id !== undefined){
+    if(id != 'new'){
       this.loadActivity(id);
     }
+    this.title.setTitle('Cadastro de Atividade');// aqui!
   }
 
   get editing(): boolean {
