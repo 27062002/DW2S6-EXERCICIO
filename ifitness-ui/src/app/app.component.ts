@@ -7,4 +7,12 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'ifitness-ui';
+
+  constructor(private router: Router){}
+
+  showingNavbar(): boolean {
+    return this.router.url !== '/home' && this.router.url !== '/users/new';
+  }
 }
+
+

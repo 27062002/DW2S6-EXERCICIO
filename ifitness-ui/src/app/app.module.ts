@@ -9,6 +9,8 @@ import { AppComponent } from './app.component';
 import { ActivitiesModule } from './activities/activities.module';
 import { SecurityModule } from './security/security.module';
 import { HttpClientModule } from '@angular/common/http';
+import { HomeModule } from './home/home.module';
+import { UsersModule } from './users/users.module';
 
 @NgModule({
   declarations: [
@@ -20,7 +22,9 @@ import { HttpClientModule } from '@angular/common/http';
     ActivitiesModule,
     SecurityModule,
     HttpClientModule,
-    CoreModule
+    HomeModule,
+    CoreModule,
+    UsersModule
   ],
   providers: [
     AuthService
