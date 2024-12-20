@@ -1,21 +1,20 @@
 import { NgModule } from '@angular/core';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { CommonModule } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 
-import { TooltipModule } from 'primeng/tooltip';
 import { ButtonModule } from 'primeng/button';
 import { TableModule } from 'primeng/table';
-import { DropdownModule } from 'primeng/dropdown';
-import { CalendarModule } from 'primeng/calendar';
+import { TooltipModule } from 'primeng/tooltip';
 import { InputTextModule } from 'primeng/inputtext';
+import { CalendarModule } from 'primeng/calendar';
+import { DropdownModule } from 'primeng/dropdown';
+import { SharedModule } from '../shared/shared.module';
 
 import { ActivitiesListComponent } from './activities-list/activities-list.component';
 import { ActivityRegisterComponent } from './activity-register/activity-register.component';
-import { SharedModule } from '../shared/shared.module';
-import { RouterModule } from '@angular/router';
-
-
 
 @NgModule({
   declarations: [
@@ -25,11 +24,11 @@ import { RouterModule } from '@angular/router';
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    FormsModule,
-    InputTextModule,
     ButtonModule,
     TableModule,
     TooltipModule,
+    FormsModule,
+    InputTextModule,
     CalendarModule,
     DropdownModule,
     SharedModule,

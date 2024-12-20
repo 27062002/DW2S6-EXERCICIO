@@ -9,7 +9,6 @@
       <p-table [value]="activities" responsiveLayout="stack" [breakpoint]="'768px'">
         <ng-template pTemplate="header">
           <tr>
-            <th>Usuário</th>
             <th>Tipo</th>
             <th>Data</th>
             <th>Distância</th>
@@ -20,22 +19,18 @@
         <ng-template pTemplate="body" let-activity>
           <tr>
             <td>
-              <span class="p-column-title">Usuário</span>
-              {{ activity.user.name }}
-            </td>
-            <td>
               <span class="p-column-title">Tipo</span>
               <span *ngIf="activity.type === 'CORRIDA'">
-              <img src="assets/running_icon.png" alt="Corrida">
+                <img src="assets/running_icon.png" alt="Corrida">
               </span>
               <span *ngIf="activity.type === 'CAMINHADA'">
-              <img src="assets/walking_icon.png" alt="Corrida">
+                <img src="assets/walking_icon.png" alt="Corrida">
               </span>
               <span *ngIf="activity.type === 'CICLISMO'">
-              <img src="assets/cycling_icon.png" alt="Corrida">
+                <img src="assets/cycling_icon.png" alt="Corrida">
               </span>
               <span *ngIf="activity.type === 'NATACAO'">
-              <img src="assets/swimming_icon.png" alt="Corrida">
+                <img src="assets/swimming_icon.png" alt="Corrida">
               </span>
             </td>
             <td>
@@ -59,14 +54,14 @@
             </td>
           </tr>
         </ng-template>
+        <ng-template pTemplate="emptymessage" let-columns>
+          <tr>
+            <td>
+               Nenhuma atividade cadastrada.
+            </td>
+          </tr>
+        </ng-template>
       </p-table>
-      <ng-template pTemplate="emptymessage" let-columns>
-        <tr>
-          <td>
-             Nenhuma atividade cadastrada.
-          </td>
-        </tr>
-      </ng-template>
     </div>
     <div class="p-col-12">
       <p><a pButton label="Nova Atividade" routerLink="/activities/new"></a></p>

@@ -1,19 +1,19 @@
 import { Component } from '@angular/core';
+import { Activity } from '../../core/model';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { MessageService } from 'primeng/api';
 
-import { ErrorHandlerService } from './../../core/error-handler.service';
-import { ActivityService } from './../activity.service';
-import { Activity } from './../../core/model';
+import { ActivityService } from '../activity.service';
 import { AuthService } from '../../security/auth.service';
+import { ErrorHandlerService } from '../../core/error-handler.service';
 import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-activity-register',
   templateUrl: './activity-register.component.html',
-  styleUrls: ['./activity-register.component.css']
+  styleUrl: './activity-register.component.css'
 })
 export class ActivityRegisterComponent {
 
@@ -38,10 +38,10 @@ export class ActivityRegisterComponent {
 
   ngOnInit(): void {
     const id = this.route.snapshot.params[`id`];
-    if(id != 'new'){
+    if(id !== undefined && id !== 'new'){
       this.loadActivity(id);
     }
-    this.title.setTitle('Cadastro de Atividade');// aqui!
+    this.title.setTitle('Cadastro de Atividade');
   }
 
   get editing(): boolean {
@@ -75,11 +75,11 @@ export class ActivityRegisterComponent {
 
   addActivity(activityForm: NgForm) {
     this.activityService.add(this.activity)
-      .then(addedActivity => {
-        this.messageService.add({ severity: 'success', detail: 'Atividade adicionada com sucesso!' });
-	this.loadActivity(addedActivity.id);
-        this.router.navigate(['/activities', addedActivity.id]);
-      })
+    .then(addedActivity => {
+      this.messageService.add({ severity: 'success', detail: 'Atividade adicionada com sucesso!' });
+      this.loadActivity(addedActivity.id);
+      this.router.navigate(['/activities', addedActivity.id]);
+    })
       .catch(error => this.errorHandler.handle(error));
   }
 
@@ -88,4 +88,5 @@ export class ActivityRegisterComponent {
     activityForm.reset();
     this.router.navigate(['/activities/new']);
   }
+
 }

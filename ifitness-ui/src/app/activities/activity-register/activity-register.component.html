@@ -1,10 +1,9 @@
 <div class="container">
-  <h1>{{ editing ? 'Edição de' : 'Nova' }} Atividade</h1>
   <form #f="ngForm" autocomplete="off" (ngSubmit)="save(f)">
 
     <div class="p-grid">
       <div class="p-col-12">
-        <h1>Nova Atividade</h1>
+        <h1>{{ editing ? 'Edição de' : 'Nova' }} Atividade</h1>
       </div>
 
       <div class="p-col-12 p-md-6 p-fluid">

@@ -10,11 +10,12 @@ import { Title } from '@angular/platform-browser';
   templateUrl: './activities-list.component.html',
   styleUrl: './activities-list.component.css'
 })
-export class ActivitiesListComponent implements OnInit{
+export class ActivitiesListComponent implements OnInit {
 
   activities = [];
 
   constructor(
+    private auth: AuthService,
     private activityService: ActivityService,
     private confirmation: ConfirmationService,
     private messageService: MessageService,
@@ -23,6 +24,9 @@ export class ActivitiesListComponent implements OnInit{
   ){}
 
   ngOnInit(): void {
+    if (this.auth.isInvalidAccessToken()) {
+      this.auth.login();
+    }
     this.title.setTitle('Listagem de Atividades');
     this.list();
   }

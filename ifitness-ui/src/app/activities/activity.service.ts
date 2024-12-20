@@ -1,8 +1,10 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+
+import moment from 'moment';
+
 import { AuthService } from '../security/auth.service';
 import { Activity } from '../core/model';
-import moment from 'moment';
 
 @Injectable({
   providedIn: 'root'
@@ -18,19 +20,26 @@ export class ActivityService {
     private auth: AuthService
   ) { }
 
-  listByUser(): Promise<any> {
-    this.email = this.auth.jwtPayload?.sub;
-    return this.http.get(`${this.activitiesUrl}/user/${this.email}`)
-      .toPromise()
-      .then(response => {
-        return response;
-      });
-  }
-
   async list(): Promise<any> {
     const response = await this.http.get(`${this.activitiesUrl}`)
       .toPromise();
     return response;
+  }
+
+  async listByUser(): Promise<any> {
+    this.email = this.auth.jwtPayload?.sub;
+    const response = await this.http.get(`${this.activitiesUrl}/user/${this.email}`)
+      .toPromise();
+    return response;
+  }
+
+  add(activity: Activity): Promise<Activity> {
+    const headers = new HttpHeaders()
+      .append('Content-Type', 'application/json');
+
+    return this.http.post<any>(this.activitiesUrl,
+      Activity.toJson(activity), { headers })
+      .toPromise();
   }
 
   async remove(id: number): Promise<any> {
@@ -39,13 +48,6 @@ export class ActivityService {
     return null;
   }
 
-  add(activity: Activity): Promise<Activity> {
-    const headers = new HttpHeaders()
-      .append('Content-Type', 'application/json');
-
-    return this.http.post<any>(this.activitiesUrl, Activity.toJson(activity), { headers })
-      .toPromise();
-  }
   async update(activity: Activity): Promise<any> {
     const headers = new HttpHeaders()
       .append('Content-Type', 'application/json');
@@ -68,5 +70,6 @@ export class ActivityService {
   private stringToDate(activity: any): void {
     activity.date = moment(activity.date, 'DD/MM/YYYY').toDate();
   }
+
 }
 
