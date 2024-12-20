@@ -20,7 +20,8 @@ public class UserService {
 	@Autowired
 	private UserRepository userRepository;
 	
-	@Autowired PermissionRepository permissionRepository;
+	@Autowired 
+	PermissionRepository permissionRepository;
 
 	public User save(User user) {
 		user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
