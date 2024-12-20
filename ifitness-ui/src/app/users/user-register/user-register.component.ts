@@ -1,18 +1,18 @@
 import { Component } from '@angular/core';
-import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Title } from '@angular/platform-browser';
+import { NgForm } from '@angular/forms';
 
 import { MessageService } from 'primeng/api';
 
-import { UserService } from '../user.service';
-import { Title } from '@angular/platform-browser';
-import { User } from '../../core/model';
 import { ErrorHandlerService } from '../../core/error-handler.service';
+import { UserService } from '../user.service';
+import { User } from '../../core/model';
 
 @Component({
   selector: 'app-user-register',
   templateUrl: './user-register.component.html',
-  styleUrls: ['./user-register.component.css']
+  styleUrl: './user-register.component.css'
 })
 export class UserRegisterComponent {
 

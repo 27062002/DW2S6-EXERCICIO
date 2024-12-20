@@ -1,6 +1,5 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-
 import { User } from '../core/model';
 
 @Injectable({
@@ -19,4 +18,5 @@ export class UserService {
     return this.http.post<any>(this.usersUrl, User.toJson(user), { headers })
       .toPromise();
   }
+
 }
