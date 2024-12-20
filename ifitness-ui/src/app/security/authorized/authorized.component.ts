@@ -13,14 +13,14 @@ export class AuthorizedComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private auth: AuthService,
     private route: Router
-  ) { }
+  ){}
 
   ngOnInit(): void {
     this.activatedRoute.queryParams.subscribe((params:any) => {
       if (params.code) {
         this.auth.getNewAccessTokenWithCode(params.code, params.state)
           .then(()=> {
-            this.route.navigate(['/'])
+            this.route.navigate(['/activities'])
           })
           .catch((e:any) => {
             console.error('Erro no callback', e)
