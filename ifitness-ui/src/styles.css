@@ -17,13 +17,6 @@ body {
   margin: 1px;
 }
 
-@media (min-width: 1200px) {
-  .container {
-    width: 1170px;
-    margin: 0 auto;
-  }
-}
-
 form .p-button {
   margin-right: .25em;
 }
@@ -35,3 +28,12 @@ button,a {
   border: none;
   font-size: medium;
 }
+
+@media (min-width: 1200px) {
+  .container {
+    width: 1170px;
+    margin: 0 auto;
+  }
+}
+
+

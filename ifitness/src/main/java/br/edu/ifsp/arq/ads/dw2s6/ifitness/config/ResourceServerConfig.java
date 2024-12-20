@@ -33,7 +33,7 @@
 	 @Bean
 		SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
 			http.authorizeHttpRequests(auth -> {
-					auth.requestMatchers("/users").permitAll();
+					auth.requestMatchers("/users", "/v3/api-docs/**", "/swagger-ui/**").permitAll();
 					auth.anyRequest().authenticated();}
 					)
 					.csrf(AbstractHttpConfigurer::disable)
