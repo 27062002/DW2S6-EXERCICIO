@@ -1,18 +1,18 @@
-import { NgModule, Component } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+
 import { ActivitiesListComponent } from './activities/activities-list/activities-list.component';
+import { AuthorizedComponent } from './security/authorized/authorized.component';
 import { ActivityRegisterComponent } from './activities/activity-register/activity-register.component';
 import { PageNotFoundComponent } from './core/page-not-found.component';
 import { NotAuthorizedComponent } from './core/not-authorized.component';
 import { AuthGuard } from './security/auth.guard';
 import { HomeComponent } from './home/home/home.component';
 import { UserRegisterComponent } from './users/user-register/user-register.component';
-import { AuthorizedComponent } from './security/authorized/authorized.component';
-
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
-  { path: 'home', component: HomeComponent },
+  { path: 'home', component: HomeComponent},
   { path: 'users/new', component: UserRegisterComponent },
   {
     path: 'activities/:id',
@@ -33,11 +33,10 @@ const routes: Routes = [
     data: { roles: ['ROLE_REGISTER_ACTIVITY'] }
   },
   { path: 'authorized', component: AuthorizedComponent },
-  { path: 'not-authorized', component: NotAuthorizedComponent },
   { path: 'page-not-found', component: PageNotFoundComponent },
+  { path: 'not-authorized', component: NotAuthorizedComponent },
   { path: '**', redirectTo: 'page-not-found'} // importante que seja a última rota
 ];
-
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
