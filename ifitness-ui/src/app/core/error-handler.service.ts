@@ -40,5 +40,4 @@ export class ErrorHandlerService {
 
     this.messageService.add({ severity: 'error', detail: msg });
   }
-
 }

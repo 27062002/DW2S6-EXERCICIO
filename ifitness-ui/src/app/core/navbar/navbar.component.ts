@@ -7,7 +7,9 @@ import { AuthService } from '../../security/auth.service';
   styleUrl: './navbar.component.css'
 })
 export class NavbarComponent {
-  constructor(public auth: AuthService) { }
   displayingMenu = false;
+
+  constructor(public auth: AuthService) { }
+
 }
 

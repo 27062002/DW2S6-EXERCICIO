@@ -1,5 +1,4 @@
 import moment from 'moment';
-import { AuthService } from '../security/auth.service';
 
 export class User {
   id!: number;
@@ -26,10 +25,10 @@ export class User {
 export class Activity {
   id!: number;
   type!: 'CAMINHADA';
-  data!: Date;
+  date!: Date;
   distance!: number;
   duration!: number;
-  user: any;
+  user!: User;
 
   constructor(user_id: number){
     this.user = new User();
@@ -40,7 +39,7 @@ export class Activity {
     return {
       id: activity.id,
       type: activity.type,
-      data: moment(activity.data).format('DD/MM/YYYY'),
+      date: moment(activity.date).format('DD/MM/YYYY'),
       distance: activity.distance,
       duration: activity.duration,
       user: activity.user
