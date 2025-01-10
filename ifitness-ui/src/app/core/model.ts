@@ -29,6 +29,7 @@ export class Activity {
   distance!: number;
   duration!: number;
   user!: User;
+  data: any;
 
   constructor(user_id: number){
     this.user = new User();

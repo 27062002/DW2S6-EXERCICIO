@@ -1,7 +1,11 @@
 package br.edu.ifsp.arq.ads.dw2s6.ifitness.service;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 import java.util.List;
 import java.util.Optional;
+
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +16,7 @@ import br.edu.ifsp.arq.ads.dw2s6.ifitness.domain.model.Activity;
 import br.edu.ifsp.arq.ads.dw2s6.ifitness.domain.model.User;
 import br.edu.ifsp.arq.ads.dw2s6.ifitness.repository.ActivityRepository;
 import br.edu.ifsp.arq.ads.dw2s6.ifitness.repository.UserRepository;
+import br.edu.ifsp.arq.ads.dw2s6.ifitness.repository.filter.ActivityFilter;
 import br.edu.ifsp.arq.ads.dw2s6.ifitness.service.exception.NonExistentOrInactiveUserException;
 
 @Service
@@ -48,6 +53,10 @@ public class ActivityService {
 			return activityRepository.findByUser(user.get());
 		}
 		return null;
+	}
+	
+	public Page<Activity> search(ActivityFilter activityFilter, Pageable pageable){
+		return activityRepository.filter(activityFilter, pageable);
 	}
 }
 

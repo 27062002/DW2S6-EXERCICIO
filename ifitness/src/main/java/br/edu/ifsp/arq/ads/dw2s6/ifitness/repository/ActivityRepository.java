@@ -6,7 +6,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import br.edu.ifsp.arq.ads.dw2s6.ifitness.domain.model.Activity;
 import br.edu.ifsp.arq.ads.dw2s6.ifitness.domain.model.User;
+import br.edu.ifsp.arq.ads.dw2s6.ifitness.repository.activity.ActivityRepositoryQuery;
 
-public interface ActivityRepository extends JpaRepository<Activity, Long> {
+public interface ActivityRepository extends JpaRepository<Activity, Long>, ActivityRepositoryQuery{
 	public List<Activity> findByUser(User user);
+	
 }

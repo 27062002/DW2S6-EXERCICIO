@@ -144,4 +144,16 @@ export class AuthService {
     return false;
   }
 
+  clearAccessToken(): void {
+    localStorage.removeItem('token');
+    this.jwtPayload = null;
+  }
+
+  logout() {
+    this.clearAccessToken();
+    localStorage.clear();
+    window.location.href = 'http://localhost:8080/logout?returnTo=' + 'http://cti-optiplex-3080:8000/';
+  }
+
+
 }
